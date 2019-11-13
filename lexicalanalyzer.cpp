@@ -2,23 +2,30 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
-const string token_dictionary = "p,q,r,s = 1 \\
-                                 not     = 2 \\
-                                 and     = 3 \\
-                                 or      = 4 \\
-                                 xor     = 5 \\
-                                 if      = 6 \\
-                                 then    = 7 \\
-                                 iff     = 8 \\
-                                 (       = 9 \\
-                                 )       = 10 \\";
+vector<string> get_input_file(){
+    vector<string> input_file;
+    string data;
+    ifstream inFile;
+
+    inFile.open("proposional_logic_formula_data.txt");
+    while(getline(inFile, data)){
+        input_file.push_back(data);
+    }
+    inFile.close();
+    return input_file;
+}
 
 void print_all_token(vector<int> token_list){
     for(auto i = token_list.begin(); i != token_list.end(); i++){
-        cout << *i << " ";
+        if(*i != 999){
+            cout << *i << " ";
+        } else {
+            cout << "error" << " ";
+        }
     }
 }
 
@@ -28,104 +35,142 @@ string remove_space_from_string(string input){
 }
 
 int main(){
-    
-    vector<int> token_list;
+    //vector<int> token1, token2, token3;
+    //map<int, vector<int>> token_list;
+    //token_list.insert(token1)
+    //string formula1 = "(p and q) or r";
+    //cout << formula1 << endl;
 
-    string proposional_logic = remove_space_from_string("p and q");
-    cout << proposional_logic << endl;
-    cout << proposional_logic.size();
+    // TODO make code more clean
+    // TODO create map of vector
+
+    vector<int> token;
     
-    for (int i = 0; i < proposional_logic.size(); i++){
+    string formula = remove_space_from_string("if p then (not q s)");
+    cout << formula << endl;
+    
+    for (int i = 0; i < formula.size(); i++){
         
         // parsing untuk token p v q v r
-        if(proposional_logic[i] == 'p' || 
-           proposional_logic[i] == 'q' || 
-           proposional_logic[i] == 'r' || 
-           proposional_logic[i] == 's'){
-               token_list.push_back(1);
+        if(formula[i] == 'p' || 
+           formula[i] == 'q' || 
+           formula[i] == 'r' || 
+           formula[i] == 's'){
+               token.push_back(1);
            }
-        // parsing untuk token or
-        else if (proposional_logic[i] == 'n'){
+        // parsing untuk token not
+        else if (formula[i] == 'n'){
             i++;
-            if(proposional_logic[i] == 'o'){
+            if(formula[i] == 'o'){
                 i++;
-                if(proposional_logic[i] == 't'){
-                    token_list.push_back(2);
+                if(formula[i] == 't'){
+                    token.push_back(2);
                 } else {
-                    cout << "error";
+                    // error
+                    token.push_back(999);
+                    break;
                 }
             } else {
-                cout << "error";
+                token.push_back(999);
+                break;
             }
         }
 
         // parsing untuk token and
-        else if (proposional_logic[i] == 'a'){
+        else if (formula[i] == 'a'){
             i++;
-            if(proposional_logic[i] == 'n'){
+            if(formula[i] == 'n'){
                 i++;
-                if(proposional_logic[i] == 'd'){
-                    token_list.push_back(3);
+                if(formula[i] == 'd'){
+                    token.push_back(3);
                 } else {
-                    cout << "error";
+                    token.push_back(999);
+                    break;
                 }
             }  else {
-                cout << "error";
+                token.push_back(999);
+                break;
             }
         }
 
         // parsing untuk token or 
-        else if (proposional_logic[i] == 'o'){
+        else if (formula[i] == 'o'){
             i++;
-            if(proposional_logic[i] == 'r'){
-                token_list.push_back(4);
+            if(formula[i] == 'r'){
+                token.push_back(4);
             } else {
-                cout << "error";
+                token.push_back(999);
+                break;
             }
         }
 
         // parsing untuk token xor
-        else if (proposional_logic[i] == 'x'){
+        else if (formula[i] == 'x'){
             i++;
-            if(proposional_logic[i] == 'o'){
+            if(formula[i] == 'o'){
                 i++;
-                if(proposional_logic[i] == 'r'){
-                    token_list.push_back(5);
+                if(formula[i] == 'r'){
+                    token.push_back(5);
                 } else {
-                    cout << "error";
+                    token.push_back(999);
+                    break;
                 }
             } else {
-                cout << "error";
+                token.push_back(999);
+                break;
             }
         }
 
-        // parsing untuk token if dan iff
-        else if (proposional_logic[i] == 'i'){
+        // parsing untuk token if atau iff
+        else if (formula[i] == 'i'){
             i++;
-            if(proposional_logic[i] == 'f'){
-                token_list.push_back(6);
+            if(formula[i] == 'f' && formula[i++] != 'f'){
+                token.push_back(6);
+            } else {
+                token.push_back(999);
+                break;
+            }if(formula[i] == 'f' && formula[i++] == 'f') {
+                token.push_back(8);
+            } else {
+                token.push_back(999);
+                break;
+            }
+        }
+
+        // parsing untk token then
+        else if (formula[i] == 't'){
+            i++;
+            if(formula[i] == 'h'){
                 i++;
-                if(proposional_logic[i] == 'f'){
-                    token_list.push_back(7);
+                if(formula[i] == 'e'){
+                    i++;
+                    if (formula[i] == 'n'){
+                        token.push_back(7);
+                    } else {
+                        token.push_back(999);
+                        break;
+                    }
                 } else {
-                    cout << "error";
+                    token.push_back(999);
+                    break;
                 }
             } else {
-                cout << "error";
+                token.push_back(999);
+                break;
             }
         }
 
         // parsing untuk token (
-        else if (proposional_logic[i] == '('){
-            token_list.push_back(8);
+        else if (formula[i] == '('){
+            token.push_back(9);
         }
         
         // parsing untuk token )
-        else if (proposional_logic[i] == ')'){
-            token_list.push_back(9);
+        else if (formula[i] == ')'){
+            token.push_back(10);
         }
     }
 
     cout << endl;
-    print_all_token(token_list);    
+    print_all_token(token);    
 }

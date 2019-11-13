@@ -1,0 +1,2 @@
+if p then q if p and r
+((p and q) or (r or s)) then not q
