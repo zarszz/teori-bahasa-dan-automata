@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <map>
 #include <algorithm>
 #include <fstream>
 
@@ -46,7 +45,7 @@ int main(){
 
     vector<int> token;
     
-    string formula = remove_space_from_string("if p then (not q s)");
+    string formula = remove_space_from_string("if p then (not q iff s)");
     cout << formula << endl;
     
     for (int i = 0; i < formula.size(); i++){
@@ -124,16 +123,12 @@ int main(){
         // parsing untuk token if atau iff
         else if (formula[i] == 'i'){
             i++;
-            if(formula[i] == 'f' && formula[i++] != 'f'){
+            if(formula[i] == 'f' && formula[i = i + 1] != 'f'){
                 token.push_back(6);
-            } else {
-                token.push_back(999);
-                break;
-            }if(formula[i] == 'f' && formula[i++] == 'f') {
+            } else if(formula[i] == 'f' && formula[i++] == 'f'){
                 token.push_back(8);
             } else {
                 token.push_back(999);
-                break;
             }
         }
 
