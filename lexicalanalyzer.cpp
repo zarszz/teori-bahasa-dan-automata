@@ -45,7 +45,7 @@ int main(){
 
     vector<int> token;
     
-    string formula = remove_space_from_string("if p then (not q iff s)");
+    string formula = remove_space_from_string("(if r then (not q iff s)) xor ((p or q) iff s) and (not (p or q))");
     cout << formula << endl;
     
     for (int i = 0; i < formula.size(); i++){
