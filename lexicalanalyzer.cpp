@@ -127,7 +127,8 @@ int main(){
                                      formula[j+1] == 'q' || 
                                      formula[j+1] == 'r' || 
                                      formula[j+1] == 's' ||
-                                     formula[j+1] == '(')){
+                                     formula[j+1] == '(' ||
+                                     formula[j+1] == 'n')){
                 token.push_back(6);
             } else if(formula[j] == 'f' && formula[j + 1] == 'f'){
                 token.push_back(8);
