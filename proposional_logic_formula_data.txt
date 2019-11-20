@@ -1,2 +1,2 @@
-if (p thennn q)
+((if (p thennn q)
 ((p andd q) xor (r or s)) then (not q)
