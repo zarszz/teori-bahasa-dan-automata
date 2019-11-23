@@ -18,9 +18,7 @@ int main(){
         token.clear();
         cout << "masukkan formula : ";
         getline(cin, formula_from_input);
-        
         lexical_analyzer(formula_from_input, token);
-
         cout << endl << "token : ";
         print_all_token(token);
     }
@@ -29,7 +27,6 @@ int main(){
 void lexical_analyzer(string formula, list<int> &token){
 
     for (int i = 0; i < formula.size(); i++){
-        
         // parsing untuk token p v q v r
         if(formula[i] == 'p' || formula[i] == 'q' || formula[i] == 'r' || formula[i] == 's'){
             if((
@@ -78,8 +75,8 @@ void lexical_analyzer(string formula, list<int> &token){
         // parsing untuk token or 
         else if (formula[i] == 'o'){
             i++;
-            if((formula[i] == 'r'  && (formula[i+1] == '(' || formula[i+1] == ' ')) || i == (formula.length()-1)){
-                token.push_back(4);
+            if(((formula[i] == 'r') && (formula[i+1] == ' ' || formula[i+1] == '(')) || i == (formula.length()-1)){
+				token.push_back(4);
             } else {
                 token.push_back(999);
                 break;
@@ -104,10 +101,26 @@ void lexical_analyzer(string formula, list<int> &token){
         // parsing untuk token if atau iff
         else if (formula[i] == 'i'){
             int j = i + 1;
-            if((formula[j] == 'f' && (formula[j+1] == '(' || formula[j+1] == ' ')) || i == (formula.length()-1)){
-                token.push_back(6);
-            } else if((formula[j] == 'f' && formula[j + 1] == 'f' && (formula[j + 2] == '(' || formula[j+2] == ' ')) || i == (formula.length()-1)){
-                token.push_back(8);
+            if(formula[j] == 'f' && formula[j+1] != 'f'){
+                if((j+1) == formula.length()){
+					token.push_back(6);
+					break;
+				} else if(formula[j+1] == ' ' || formula[j+1] == '('){
+					token.push_back(6);
+				} else {
+					token.push_back(999);
+					break;
+				}
+            }else if(formula[j] == 'f' && formula[j + 1] == 'f'){
+				if((j+2) == formula.length()){
+					token.push_back(8);
+					break;
+				} else if(formula[j+1] == ' ' || formula[j+1] == '('){
+					token.push_back(8);
+				} else {
+					token.push_back(999);
+					break;
+				}
             } else {
                 token.push_back(999);
                 break;
@@ -139,7 +152,6 @@ void lexical_analyzer(string formula, list<int> &token){
         else if (formula[i] == '('){
             token.push_back(9);
         }
-        
         // parsing untuk token )
         else if (formula[i] == ')'){
             token.push_back(10);
@@ -156,5 +168,5 @@ void print_all_token(list<int> token_list){
             cout << "error" << " ";
         }
     }
-    cout << endl << endl;    
+    cout << endl << endl;
 }
