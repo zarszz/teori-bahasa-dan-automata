@@ -1,12 +1,13 @@
 #include <iostream>
-#include <list>
+#include <vector>
+#include "token_validation.cpp"
 
 using namespace std;
 
-void lexical_analyzer(string formula, list<int> &token);
-void print_all_token(list<int> token_list);
+void lexical_analyzer(string formula, vector<int> &token);
+void print_all_token(vector<int> token_list);
 
-list<int> token;
+vector<int> token;
 
 int main(){
     // TODO make code more clean
@@ -20,11 +21,12 @@ int main(){
         getline(cin, formula_from_input);
         lexical_analyzer(formula_from_input, token);
         cout << endl << "token : ";
-        print_all_token(token);
+		print_all_token(token);
+		token_validation(token);
     }
 }
 
-void lexical_analyzer(string formula, list<int> &token){
+void lexical_analyzer(string formula, vector<int> &token){
 
     for (int i = 0; i < formula.size(); i++){
         // parsing untuk token p v q v r
@@ -160,7 +162,7 @@ void lexical_analyzer(string formula, list<int> &token){
 
 }
 
-void print_all_token(list<int> token_list){
+void print_all_token(vector<int> token_list){
     for(auto i = token_list.begin(); i != token_list.end(); i++){
         if(*i != 999){
             cout << *i << " ";
