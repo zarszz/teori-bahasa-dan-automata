@@ -1,0 +1,13 @@
+# pastikan compiler c++ telah di-install di dalam system anda(saya rekomendasikan mingw)
+
+1. buka cmd(command prompt) di direktori file ini disimpan
+
+2. dalam cmd(command prompt) ketik perintah dibawah : 
+	g++ header_file.h lexicalanalyzer.cpp token_validation.cpp main.cpp -o phase2.exe
+
+3. setelah berhasil di compile, dalam cmd(command prompt) yang sama ketik perintah dibawah:
+	./phase2.exe
+
+4. apabila berhasil dicompile, program akan meminta inputan
+
+5. untuk keluar dari program silahkan tekan (ctrl + c) dari cmd(command prompt)

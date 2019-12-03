@@ -1,30 +1,4 @@
-#include <iostream>
-#include <vector>
-#include "token_validation.cpp"
-
-using namespace std;
-
-void lexical_analyzer(string formula, vector<int> &token);
-void print_all_token(vector<int> token_list);
-
-vector<int> token;
-
-int main(){
-    // TODO make code more clean
-
-    string formula_from_input;
-
-    while(true){
-
-        token.clear();
-        cout << "masukkan formula : ";
-        getline(cin, formula_from_input);
-        lexical_analyzer(formula_from_input, token);
-        cout << endl << "token : ";
-		print_all_token(token);
-		token_validation(token);
-    }
-}
+#include "header_file.h";
 
 void lexical_analyzer(string formula, vector<int> &token){
 
@@ -117,7 +91,7 @@ void lexical_analyzer(string formula, vector<int> &token){
 				if((j+2) == formula.length()){
 					token.push_back(8);
 					break;
-				} else if(formula[j+1] == ' ' || formula[j+1] == '('){
+				} else if(formula[j+2] == ' ' || formula[j+2] == '('){
 					token.push_back(8);
 				} else {
 					token.push_back(999);
