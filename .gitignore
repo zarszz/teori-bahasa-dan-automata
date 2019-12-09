@@ -32,4 +32,7 @@
 *.app
 
 # vscode file
+*.vscode
 .vscode
+
+tba_phas2_complete.rar

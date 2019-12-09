@@ -3,7 +3,6 @@
 vector <int> token;
 
 int main(){
-	// TODO make code more clean
 
     string formula_from_input;
 
